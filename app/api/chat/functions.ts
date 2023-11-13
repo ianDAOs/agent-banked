@@ -70,7 +70,9 @@ async function send_nft(address: string) {
     }
   }
 
-  return await transactionHash;
+  const transactionUrl = `https://mumbai.polygonscan.com/tx/${transactionHash}`;
+
+  return await transactionUrl;
 }
 
 export async function runFunction(name: string, args: any) {
