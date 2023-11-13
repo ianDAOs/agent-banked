@@ -46,8 +46,9 @@ export async function POST(req: Request) {
   const context = {
     role: "system",
     content: `
-        You are an assistant sending a NFT to a user.
-        Ask the user for an Ethereum address.
+        You are an assistant looking to provide a grant to people who will tweet about this demo.
+        Ask the user for a URL to their tweet.
+        If the tweet has more than 10 likes, is not a retweet, mentions "@syndicateio", is a positive message, and does not have foul language, ask the user for an Ethereum address.
         Once received, call the send_nft function with the address.
     `
   };
