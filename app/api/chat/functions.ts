@@ -2,15 +2,15 @@ import { CompletionCreateParams } from "openai/resources/chat/index";
 
 export const functions: CompletionCreateParams.Function[] = [
   {
-    name: "send_nft",
+    name: "send_donation",
     description:
-      "Send an NFT.",
+      "Send a donation.",
     parameters: {
       type: "object",
       properties: {
         address: {
           type: "string",
-          description: "The address to send an NFT to",
+          description: "The address to send a donation to",
         },
       },
       required: ["address"],
@@ -22,11 +22,13 @@ async function send_tx(address: string) {
 
   const requestBody = {
     projectId: `${process.env.PROJECT_ID}`,
-    contractAddress: '0xbEc332E1eb3EE582B36F979BF803F98591BB9E24',
-    chainId: 80001,
-    functionSignature: 'mint(address account)',
+    contractAddress: '0xa2327a938febf5fec13bacfb16ae10ecbc4cbdcf',
+    chainId: 1,
+    functionSignature: 'transferFrom(address from, address to, uint256 value)',
     args: {
-      account: address,
+      from: '0x80a8b77065d682E9394bB0c80952fA28c314723e',
+      to: address,
+      value: 1000000,
     }
   };
 
@@ -90,7 +92,7 @@ async function get_hash(transactionId: string): Promise<string> {
   return transactionHash;
 }
 
-async function send_nft(address: string) {
+async function send_donation(address: string) {
   const response = await send_tx(address);
   const transactionHash = await get_hash(response.data.transactionId);
   const transactionUrl = `https://mumbai.polygonscan.com/tx/${transactionHash}`;
@@ -99,8 +101,8 @@ async function send_nft(address: string) {
 
 export async function runFunction(name: string, args: any) {
   switch (name) {
-    case "send_nft":
-      return await send_nft(args["address"]);
+    case "send_donation":
+      return await send_donation(args["address"]);
     default:
       return null;
   }
