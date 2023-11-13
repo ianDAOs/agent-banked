@@ -42,10 +42,23 @@ export async function POST(req: Request) {
 
   const { messages } = await req.json();
 
+  // Game context that is sent to OpenAI
+  const context = {
+    role: "system",
+    content: `
+        You are an assistant sending a NFT to a user.
+        Ask the user for an Ethereum address.
+        Once received, call the send_nft function with the address.
+    `
+  };
+
+  // Combine the context with the user prompts into an array
+  const combinedMessages = [context, ...messages];
+
   // check if the conversation requires a function call to be made
   const initialResponse = await openai.chat.completions.create({
     model: "gpt-4-1106-preview",
-    messages,
+    messages: combinedMessages,
     stream: true,
     functions,
     function_call: "auto",
@@ -61,7 +74,7 @@ export async function POST(req: Request) {
       return openai.chat.completions.create({
         model: "gpt-4-1106-preview",
         stream: true,
-        messages: [...messages, ...newMessages],
+        messages: [...combinedMessages, ...newMessages],
       });
     },
   });
