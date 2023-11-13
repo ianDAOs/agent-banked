@@ -61,7 +61,7 @@ async function send_nft(address: string) {
   return await response.json();
 }
 
-async function get_url(transactionId: string): Promise<string> {
+async function get_url(transactionId: string) {
   let transactionHash = '';
   const options = {
     method: 'GET',
@@ -70,22 +70,29 @@ async function get_url(transactionId: string): Promise<string> {
     }
   };
 
-  // Keep trying until the transaction hash is available
-  while (!transactionHash) {
+  const maxRetries = 5; // Maximum number of retries
+  let attempts = 0;
+
+  while (!transactionHash && attempts < maxRetries) {
     try {
-      const response = await fetch(`https://api.syndicate.io/wallet/project/3568dd1d-1635-48f2-a1fd-25af23643b1/request/${transactionId}`, options);
+      const response = await fetch(`https://api.syndicate.io/wallet/project/3568dd1d-1635-48f2-a1fd-25af23643b13/request/${transactionId}`, options);
       const data = await response.json();
       transactionHash = data.transactionAttempts[0]?.hash || '';
     } catch (error) {
       console.error('Error getting transaction details:', error);
     }
-    // Wati for a few seconds before retrying
-    if (!transactionHash) {
+    attempts++;
+    if (!transactionHash && attempts < maxRetries) {
       await new Promise(resolve => setTimeout(resolve, 5000));  // Wait for 5 seconds
     }
   }
 
-  return transactionHash;
+  if (!transactionHash) {
+    throw new Error('Failed to retrieve transaction hash after maximum retries.');
+  }
+
+  const transactionUrl = `https://mumbai.polygonscan.com/tx/${transactionHash}`;
+  return transactionUrl;
 }
 
 export async function runFunction(name: string, args: any) {
