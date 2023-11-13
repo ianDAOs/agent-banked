@@ -108,7 +108,7 @@ export default function Chat() {
                 rel="noopener noreferrer"
                 className="font-medium underline underline-offset-4 transition-colors hover:text-black"
               >
-                Syndicate's APIs
+                Syndicate{"'"}s APIs
               </a>{" "}
               and{" "}
               <a
@@ -203,7 +203,7 @@ export default function Chat() {
             rel="noopener noreferrer"
             className="transition-colors hover:text-black"
           >
-            Syndicate's APIs
+            Syndicate{"'"}s APIs
           </a>{" "}
           and{" "}
           <a
