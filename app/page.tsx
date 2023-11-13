@@ -98,19 +98,19 @@ export default function Chat() {
         <div className="border-gray-200sm:mx-0 mx-5 mt-20 max-w-screen-md rounded-md border sm:w-full">
           <div className="flex flex-col space-y-4 p-7 sm:p-10">
             <h1 className="text-lg font-semibold text-black">
-              Welcome to ChatHN!
+              AI Agents That Can Bank Themselves {"("}Using Blockchains{")"}
             </h1>
             <p className="text-gray-500">
-              This is an{" "}
+              This demo of an AI agent uses{" "}
               <a
-                href="https://github.com/steven-tey/chathn"
+                href="https://platform.openai.com/docs/guides/gpt/function-calling"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium underline underline-offset-4 transition-colors hover:text-black"
               >
-                open-source
+                Syndicate's APIs
               </a>{" "}
-              AI chatbot that uses{" "}
+              and{" "}
               <a
                 href="https://platform.openai.com/docs/guides/gpt/function-calling"
                 target="_blank"
@@ -119,25 +119,19 @@ export default function Chat() {
               >
                 OpenAI Functions
               </a>{" "}
-              and{" "}
-              <a
-                href="https://sdk.vercel.ai/docs"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium underline underline-offset-4 transition-colors hover:text-black"
-              >
-                Vercel AI SDK
-              </a>{" "}
-              to interact with the{" "}
+              to autonomously manage{" "}
               <a
                 href="https://github.com/HackerNews/API"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium underline underline-offset-4 transition-colors hover:text-black"
               >
-                Hacker News API
+                this Gnosis Safe multisig wallet
               </a>{" "}
-              with natural language.
+              starting with 500 USDC.
+            </p>
+            <p className="text-gray-500">
+              This AI Agent is thinking about how to best use its capital. Do you have any ideas?
             </p>
           </div>
           <div className="flex flex-col space-y-4 border-t border-gray-200 bg-gray-50 p-7 sm:p-10">
@@ -204,39 +198,30 @@ export default function Chat() {
         <p className="text-center text-xs text-gray-400">
           Built with{" "}
           <a
+            href="https://docs.syndicate.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-black"
+          >
+            Syndicate's APIs
+          </a>{" "}
+          and{" "}
+          <a
             href="https://platform.openai.com/docs/guides/gpt/function-calling"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors hover:text-black"
           >
             OpenAI Functions
-          </a>{" "}
-          and{" "}
-          <a
-            href="https://sdk.vercel.ai/docs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-black"
-          >
-            Vercel AI SDK
           </a>
           .{" "}
           <a
-            href="https://github.com/steven-tey/chathn"
+            href="https://github.com/ianDAOs/agent-banked"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors hover:text-black"
           >
             View the repo
-          </a>{" "}
-          or{" "}
-          <a
-            href="https://vercel.com/templates/next.js/chathn"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-black"
-          >
-            deploy your own
           </a>
           .
         </p>
