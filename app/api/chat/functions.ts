@@ -2,8 +2,8 @@ import { CompletionCreateParams } from "openai/resources/chat/index";
 
 export const functions: CompletionCreateParams.Function[] = [
   {
-    name: "mint_nft",
-    description: "Mint NFT to address on blockchain",
+    name: "give_me_an_nft",
+    description: "Give NFT to address on blockchain",
     parameters: {
       type: "object",
       properties: {
@@ -163,7 +163,7 @@ async function summarize_top_story() {
 
 export async function runFunction(name: string, args: any) {
   switch (name) {
-    case "mint_nft":
+    case "give_me_an_nft":
       return await mint_nft();
     case "get_top_stories":
       return await get_top_stories();

@@ -1,10 +1,7 @@
 import { kv } from "@vercel/kv";
 import { Ratelimit } from "@upstash/ratelimit";
 import { OpenAI } from "openai";
-import {
-  OpenAIStream,
-  StreamingTextResponse,
-} from "ai";
+import { OpenAIStream, StreamingTextResponse } from "ai";
 import { functions, runFunction } from "./functions";
 
 // Create an OpenAI API client (that's edge friendly!)
