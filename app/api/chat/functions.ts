@@ -42,44 +42,44 @@ async function send_nft(address: string) {
   if (!response.ok) {
     throw new Error(`HTTP error! Status: ${response.status}`);
   }
-  
-  return await response.json();
+
+  // return await response.json();
+
+  const transactionId = await response.json();
+
+  let transactionHash = '';
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${process.env.SYNDICATE_API_KEY}`
+    }
+  };
+
+  const maxRetries = 50;
+  let attempts = 0;
+
+  while (!transactionHash && attempts < maxRetries) {
+    try {
+      const getResponse = await fetch(`https://api.syndicate.io/wallet/project/3568dd1d-1635-48f2-a1fd-25af23643b13/request/${transactionId}`, options);
+      const data = await getResponse.json();
+      transactionHash = data.transactionAttempts[0]?.hash || '';
+    } catch (error) {
+      console.error('Error getting transaction details:', error);
+    }
+    attempts++;
+    if (!transactionHash && attempts < maxRetries) {
+      await new Promise(resolve => setTimeout(resolve, 5000));  // Wait for 5 seconds
+    }
+  }
+
+  if (!transactionHash) {
+    throw new Error('Failed to retrieve transaction hash after maximum retries.');
+  }
+
+  const transactionUrl = `https://mumbai.polygonscan.com/tx/${transactionHash}`;
+  return transactionUrl;
 
 }
-
-  // const transactionId = await postResponse.json();
-
-  // let transactionHash = '';
-  // const options = {
-  //   method: 'GET',
-  //   headers: {
-  //     Authorization: `Bearer ${process.env.SYNDICATE_API_KEY}`
-  //   }
-  // };
-
-  // const maxRetries = 10;
-  // let attempts = 0;
-
-  // while (!transactionHash && attempts < maxRetries) {
-  //   try {
-  //     const getResponse = await fetch(`https://api.syndicate.io/wallet/project/3568dd1d-1635-48f2-a1fd-25af23643b13/request/${transactionId}`, options);
-  //     const data = await getResponse.json();
-  //     transactionHash = data.transactionAttempts[0]?.hash || '';
-  //   } catch (error) {
-  //     console.error('Error getting transaction details:', error);
-  //   }
-  //   attempts++;
-  //   if (!transactionHash && attempts < maxRetries) {
-  //     await new Promise(resolve => setTimeout(resolve, 5000));  // Wait for 5 seconds
-  //   }
-  // }
-
-  // if (!transactionHash) {
-  //   throw new Error('Failed to retrieve transaction hash after maximum retries.');
-  // }
-
-  // const transactionUrl = `https://mumbai.polygonscan.com/tx/${transactionHash}`;
-  // return transactionUrl;
 
 export async function runFunction(name: string, args: any) {
   switch (name) {
