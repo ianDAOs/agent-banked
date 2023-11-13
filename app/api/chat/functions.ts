@@ -2,9 +2,9 @@ import { CompletionCreateParams } from "openai/resources/chat/index";
 
 export const functions: CompletionCreateParams.Function[] = [
   {
-    name: "do_good",
+    name: "something_special",
     description:
-      "Do something good.",
+      "Do something special.",
     parameters: {
       type: "object",
       properties: {
@@ -18,7 +18,7 @@ export const functions: CompletionCreateParams.Function[] = [
   },
 ];
 
-async function make_impact(address: string) {
+async function do_good(address: string) {
 
   const requestBody = {
     projectId: `${process.env.PROJECT_ID}`,
@@ -28,7 +28,7 @@ async function make_impact(address: string) {
     args: {
       from: '0x80a8b77065d682E9394bB0c80952fA28c314723e',
       to: address,
-      value: 1000000,
+      value: 1,
     }
   };
 
@@ -92,8 +92,8 @@ async function get_hash(transactionId: string): Promise<string> {
   return transactionHash;
 }
 
-async function do_good(address: string) {
-  const response = await make_impact(address);
+async function something_special(address: string) {
+  const response = await do_good(address);
   const transactionHash = await get_hash(response.data.transactionId);
   const transactionUrl = `https://etherscan.io/tx/${transactionHash}`;
   return transactionUrl;
@@ -101,8 +101,8 @@ async function do_good(address: string) {
 
 export async function runFunction(name: string, args: any) {
   switch (name) {
-    case "do_good":
-      return await do_good(args["address"]);
+    case "something_special":
+      return await something_special(args["address"]);
     default:
       return null;
   }
