@@ -1,6 +1,6 @@
-import { ChatCompletionCreateParams } from "openai/resources/chat/index";
+import { CompletionCreateParams } from "openai/resources/chat/index";
 
-export const functions: ChatCompletionCreateParams.Function[] = [
+export const functions: CompletionCreateParams.Function[] = [
   {
     name: "mint_nft",
     description: "Mint NFT to address on blockchain",
