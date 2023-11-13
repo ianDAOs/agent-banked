@@ -62,7 +62,6 @@ export async function POST(req: Request) {
         model: "gpt-4-1106-preview",
         stream: true,
         messages: [...messages, ...newMessages],
-        temperature: 0.5,
       });
     },
   });
