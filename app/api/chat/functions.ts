@@ -16,21 +16,21 @@ export const functions: CompletionCreateParams.Function[] = [
       required: ["address"],
     },
   },
-  // {
-  //   name: "get_url",
-  //   description:
-  //     "Get the URL for a given transactionId.",
-  //   parameters: {
-  //     type: "object",
-  //     properties: {
-  //       transactionId: {
-  //         type: "string",
-  //         description: "The transactionId to get the URL for",
-  //       },
-  //     },
-  //     required: ["transactionId"],
-  //   },
-  // },
+  {
+    name: "get_url",
+    description:
+      "Get the URL for a given transactionId.",
+    parameters: {
+      type: "object",
+      properties: {
+        transactionId: {
+          type: "string",
+          description: "The transactionId to get the URL for",
+        },
+      },
+      required: ["transactionId"],
+    },
+  },
 ];
 
 async function send_nft(address: string) {
