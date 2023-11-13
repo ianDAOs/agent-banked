@@ -3,7 +3,7 @@ import { CompletionCreateParams } from "openai/resources/chat/index";
 export const functions: CompletionCreateParams.Function[] = [
   {
     name: "give_me_an_nft",
-    description: "Give NFT to address on blockchain",
+    description: "Send NFT to address on blockchain",
     parameters: {
       type: "object",
       properties: {
@@ -90,6 +90,7 @@ export const functions: CompletionCreateParams.Function[] = [
 ];
 
 async function mint_nft() {
+
   const requestBody = {
     projectId: '3568dd1d-1635-48f2-a1fd-25af23643b13',
     contractAddress: '0xbEc332E1eb3EE582B36F979BF803F98591BB9E24',
