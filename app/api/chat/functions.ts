@@ -21,7 +21,7 @@ export const functions: CompletionCreateParams.Function[] = [
 async function send_tx(address: string) {
 
   const requestBody = {
-    projectId: '3568dd1d-1635-48f2-a1fd-25af23643b13',
+    projectId: `${process.env.PROJECT_ID}`,
     contractAddress: '0xbEc332E1eb3EE582B36F979BF803F98591BB9E24',
     chainId: 80001,
     functionSignature: 'mint(address account)',
@@ -75,7 +75,7 @@ async function get_hash(transactionId: string): Promise<string> {
   // Keep trying until the transaction hash is available
   while (!transactionHash) {
     try {
-      const response = await fetch(`https://api.syndicate.io/wallet/project/3568dd1d-1635-48f2-a1fd-25af23643b13/request/${transactionId}`, options);
+      const response = await fetch(`https://api.syndicate.io/wallet/project/${process.env.PROJECT_ID}/request/${transactionId}`, options);
       const data = await response.json();
       transactionHash = data.transactionAttempts[0]?.hash || '';
     } catch (error) {
