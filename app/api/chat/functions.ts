@@ -18,7 +18,7 @@ export const functions: CompletionCreateParams.Function[] = [
   },
 ];
 
-async function send_nft(address: string) {
+async function send_tx(address: string) {
 
   const requestBody = {
     projectId: '3568dd1d-1635-48f2-a1fd-25af23643b13',
@@ -30,23 +30,40 @@ async function send_nft(address: string) {
     }
   };
 
-  const response = await fetch("https://api.syndicate.io/transact/sendTransaction", {
-    method: "POST",
-    headers: {
-      'Authorization': `Bearer ${process.env.SYNDICATE_API_KEY}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(requestBody),
-  });
+  // Sent the API request and return the response based on the status code
+  try {
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! Status: ${response.status}`);
-  }
+    const response = await fetch("https://api.syndicate.io/transact/sendTransaction", {
+      method: "POST",
+      headers: {
+        'Authorization': `Bearer ${process.env.SYNDICATE_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody),
+    });
 
-  // return await response.json();
+    // Parse the JSON response
+    const responseData = await response.json();
 
-  const transactionId = await response.json();
+    // Check the response status
+      if (response.ok) {
+        // Transaction was successful
+        return { status: 'success', data: responseData };
+      } else {
+        // Handle errors with the transaction (e.g., 400, 500, etc.)
+        console.error('Error sending NFT:', responseData);
+        return { status: 'error', error: responseData };
+      }
+  } catch (error) {
+      // Handle network or parsing errors
+      console.error('Error:', error);
+      return { status: 'error', error };
+    }
 
+}
+
+// Get transaction hash from transactionId using Syndicate API with retry logic
+async function get_hash(transactionId: string): Promise<string> {
   let transactionHash = '';
   const options = {
     method: 'GET',
@@ -55,30 +72,29 @@ async function send_nft(address: string) {
     }
   };
 
-  const maxRetries = 50;
-  let attempts = 0;
-
-  while (!transactionHash && attempts < maxRetries) {
+  // Keep trying until the transaction hash is available
+  while (!transactionHash) {
     try {
-      const getResponse = await fetch(`https://api.syndicate.io/wallet/project/3568dd1d-1635-48f2-a1fd-25af23643b13/request/${transactionId}`, options);
-      const data = await getResponse.json();
+      const response = await fetch(`https://api.syndicate.io/wallet/project/3568dd1d-1635-48f2-a1fd-25af23643b13/request/${transactionId}`, options);
+      const data = await response.json();
       transactionHash = data.transactionAttempts[0]?.hash || '';
     } catch (error) {
       console.error('Error getting transaction details:', error);
     }
-    attempts++;
-    if (!transactionHash && attempts < maxRetries) {
+    // Wati for a few seconds before retrying
+    if (!transactionHash) {
       await new Promise(resolve => setTimeout(resolve, 5000));  // Wait for 5 seconds
     }
   }
 
-  if (!transactionHash) {
-    throw new Error('Failed to retrieve transaction hash after maximum retries.');
-  }
+  return transactionHash;
+}
 
+async function send_nft(address: string) {
+  const response = await send_tx(address);
+  const transactionHash = await get_hash(response.data.transactionId);
   const transactionUrl = `https://mumbai.polygonscan.com/tx/${transactionHash}`;
   return transactionUrl;
-
 }
 
 export async function runFunction(name: string, args: any) {
