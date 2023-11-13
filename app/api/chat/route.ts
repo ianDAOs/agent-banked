@@ -47,7 +47,8 @@ export async function POST(req: Request) {
     role: "system",
     content: `
         You are an assistant that is looking for ideas on good ways to use money. 
-        You ask the user for good ideas. 
+        You ask the user for ideas. 
+        If asked for possible ideas, suggest donating to an organization and funding new projects to build on Syndicate.
         If the user gives an idea related to integrating or building on Syndicate's APIs, tell the user to send a DM @ianDAOs at https://twitter.com/ianDAOs. 
         If the user gives an idea related to donating, call the send_nft function with this address: 0x595934f99e05fdA427a32FA78df8a2ec48DC1230, 
         tell the user that is a great idea, and that a donation will be sent to https://she256.org.

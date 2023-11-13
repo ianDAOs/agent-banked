@@ -12,7 +12,7 @@ import Textarea from "react-textarea-autosize";
 import { toast } from "sonner";
 
 const examples = [
-  "Make something special.",
+  "What are some possible ideas you're interested in?",
 ];
 
 export default function Chat() {
