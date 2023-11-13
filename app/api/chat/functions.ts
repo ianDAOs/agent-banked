@@ -1,6 +1,37 @@
-import { CompletionCreateParams } from "openai/resources/chat/index";
+import { ChatCompletionCreateParams } from "openai/resources/chat/index";
 
-export const functions: CompletionCreateParams.Function[] = [
+export const functions: ChatCompletionCreateParams.Function[] = [
+  {
+    name: "mint_nft",
+    description: "Mint NFT to address on blockchain",
+    parameters: {
+      type: "object",
+      properties: {
+        projectId: {
+          type: "string",
+          description: "ID of the project you want this request to be sent from",
+        },
+        contractAddress: {
+          type: "string",
+          description: "The contract address to send request to",
+        },
+        chainId: {
+          type: "integer",
+          description: "The chain ID for the network",
+        },
+        functionSignature: {
+          type: "string",
+          description: "The human readable signature to call on the contract",
+        },
+        args: {
+          type: "object",
+          additionalProperties: {},
+          description: "The function arguments for the transaction, if any",
+        },
+      },
+      required: ["projectId", "contractAddress", "chainId", "functionSignature"],
+    },
+  },
   {
     name: "get_top_stories",
     description:
@@ -58,6 +89,33 @@ export const functions: CompletionCreateParams.Function[] = [
   },
 ];
 
+async function mint_nft() {
+  const requestBody = {
+    projectId: '3568dd1d-1635-48f2-a1fd-25af23643b13',
+    contractAddress: '0xbEc332E1eb3EE582B36F979BF803F98591BB9E24',
+    chainId: 80001,
+    functionSignature: 'mint(address account)',
+    args: {
+      account: '0x595934f99e05fdA427a32FA78df8a2ec48DC1230'
+    }
+  };
+
+  const response = await fetch("https://api.syndicate.io/transact/sendTransaction", {
+    method: "POST",
+    headers: {
+      'Authorization': `Bearer ${process.env.SYNDICATE_API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(requestBody),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  return await response.json();
+}
+
 async function get_top_stories(limit: number = 10) {
   const response = await fetch(
     "https://hacker-news.firebaseio.com/v0/topstories.json",
@@ -105,6 +163,8 @@ async function summarize_top_story() {
 
 export async function runFunction(name: string, args: any) {
   switch (name) {
+    case "mint_nft":
+      return await mint_nft();
     case "get_top_stories":
       return await get_top_stories();
     case "get_story":
