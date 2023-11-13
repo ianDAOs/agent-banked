@@ -16,6 +16,21 @@ export const functions: CompletionCreateParams.Function[] = [
       required: ["address"],
     },
   },
+  {
+    name: "get_url",
+    description:
+      "Get the URL for a given transactionId.",
+    parameters: {
+      type: "object",
+      properties: {
+        transactionId: {
+          type: "string",
+          description: "The transactionId to get the URL for",
+        },
+      },
+      required: ["transactionId"],
+    },
+  },
 ];
 
 async function send_nft(address: string) {
@@ -43,11 +58,11 @@ async function send_nft(address: string) {
     throw new Error(`HTTP error! Status: ${response.status}`);
   }
 
-  const responseData = await response.json();
+  return await response.json();
+}
 
-  // Get transaction hash from transactionId using Syndicate API with retry logic
+async function get_url(transactionId: string): Promise<string> {
   let transactionHash = '';
-
   const options = {
     method: 'GET',
     headers: {
@@ -58,27 +73,27 @@ async function send_nft(address: string) {
   // Keep trying until the transaction hash is available
   while (!transactionHash) {
     try {
-      const response = await fetch(`https://api.syndicate.io/wallet/project/3568dd1d-1635-48f2-a1fd-25af23643b13/request/${responseData.data.transactionId}`, options);
+      const response = await fetch(`https://api.syndicate.io/wallet/project/3568dd1d-1635-48f2-a1fd-25af23643b1/request/${transactionId}`, options);
       const data = await response.json();
       transactionHash = data.transactionAttempts[0]?.hash || '';
     } catch (error) {
       console.error('Error getting transaction details:', error);
     }
-    // Wait for a few seconds before retrying
+    // Wati for a few seconds before retrying
     if (!transactionHash) {
       await new Promise(resolve => setTimeout(resolve, 5000));  // Wait for 5 seconds
     }
   }
 
-  const transactionUrl = `https://mumbai.polygonscan.com/tx/${transactionHash}`;
-
-  return await transactionUrl;
+  return transactionHash;
 }
 
 export async function runFunction(name: string, args: any) {
   switch (name) {
     case "send_nft":
       return await send_nft(args["address"]);
+    case "get_url":
+      return await get_url(args["transactionId"]);
     default:
       return null;
   }
