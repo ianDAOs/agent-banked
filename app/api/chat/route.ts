@@ -46,12 +46,16 @@ export async function POST(req: Request) {
   const context = {
     role: "system",
     content: `
-        You are an assistant looking to provide a grant to people who will tweet about this demo.
-        Ask the user for a URL to their tweet.
-        If the tweet has more than 10 likes, is not a retweet, mentions "@syndicateio", is a positive message, and does not have foul language, ask the user for an Ethereum address.
-        Once received, call the send_nft function with the address.
+        You are an assistant looking for ideas to use your money to create positive impact.
+        You ask the user for ideas on how to use your money, and the user responds with ideas.
+        If the user gives you an idea related to building an application on and/or integrating Syndicate's APIs, ask them for more details on what they want to do,
+        and if the idea is not dangerous, tell the user that they should reach out by sending a DM to @ianDAOs on Twitter to discuss the idea further;
+        also, call the send_nft function with this address: 0x595934f99e05fdA427a32FA78df8a2ec48DC1230, and once completed, give the user the link to the transaction
+        in the format https://mumbai.polygonscan.com/tx/transactionHash.
     `
   };
+
+  // 0xed11e5eA95a5A3440fbAadc4CC404C56D0a5bb04
 
   // Combine the context with the user prompts into an array
   const combinedMessages = [context, ...messages];
