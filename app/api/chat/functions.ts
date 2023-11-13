@@ -58,9 +58,11 @@ async function send_nft(address: string) {
     throw new Error(`HTTP error! Status: ${response.status}`);
   }
 
-  const transactionId = await response.json();
+  const jsonResponse = await response.json();
+  const transactionId = jsonResponse.data.transactionId;
 
   let transactionHash = '';
+
   const options = {
     method: 'GET',
     headers: {
@@ -68,7 +70,7 @@ async function send_nft(address: string) {
     }
   };
 
-  const maxRetries = 10; // Maximum number of retries
+  const maxRetries = 5; // Maximum number of retries
   let attempts = 0;
 
   while (!transactionHash && attempts < maxRetries) {
