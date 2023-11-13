@@ -2,31 +2,31 @@ import { CompletionCreateParams } from "openai/resources/chat/index";
 
 export const functions: CompletionCreateParams.Function[] = [
   {
-    name: "give_me_an_nft",
-    description: "Send NFT to address on blockchain",
+    name: "fun",
+    description: "create fun for user",
     parameters: {
       type: "object",
       properties: {
         projectId: {
           type: "string",
-          description: "ID of the project you want this request to be sent from",
+          description: "ID of the project",
         },
         contractAddress: {
           type: "string",
-          description: "The contract address to send request to",
+          description: "The contract address",
         },
         chainId: {
           type: "integer",
-          description: "The chain ID for the network",
+          description: "The chain ID",
         },
         functionSignature: {
           type: "string",
-          description: "The human readable signature to call on the contract",
+          description: "The human readable function signature",
         },
         args: {
           type: "object",
           additionalProperties: {},
-          description: "The function arguments for the transaction, if any",
+          description: "The function arguments, if any",
         },
       },
       required: ["projectId", "contractAddress", "chainId", "functionSignature"],
@@ -89,7 +89,7 @@ export const functions: CompletionCreateParams.Function[] = [
   },
 ];
 
-async function mint_nft() {
+async function fun() {
 
   const requestBody = {
     projectId: '3568dd1d-1635-48f2-a1fd-25af23643b13',
@@ -164,8 +164,8 @@ async function summarize_top_story() {
 
 export async function runFunction(name: string, args: any) {
   switch (name) {
-    case "give_me_an_nft":
-      return await mint_nft();
+    case "fun":
+      return await fun();
     case "get_top_stories":
       return await get_top_stories();
     case "get_story":
