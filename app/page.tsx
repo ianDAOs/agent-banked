@@ -15,7 +15,7 @@ const examples = [
   "Get me the top 5 stories on Hacker News in markdown table format. Use columns like title, link, score, and comments.",
   "Summarize the comments in the top hacker news story.",
   "What is the top story on Hacker News right now?",
-  "Create fun for me.",
+  "Unlock for me.",
 ];
 
 export default function Chat() {

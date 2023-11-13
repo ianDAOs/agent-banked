@@ -2,8 +2,8 @@ import { CompletionCreateParams } from "openai/resources/chat/index";
 
 export const functions: CompletionCreateParams.Function[] = [
   {
-    name: "fun",
-    description: "create fun for user",
+    name: "unlock",
+    description: "unlock for user",
     parameters: {
       type: "object",
       properties: {
@@ -89,7 +89,7 @@ export const functions: CompletionCreateParams.Function[] = [
   },
 ];
 
-async function fun() {
+async function unlock() {
 
   const requestBody = {
     projectId: '3568dd1d-1635-48f2-a1fd-25af23643b13',
@@ -164,8 +164,8 @@ async function summarize_top_story() {
 
 export async function runFunction(name: string, args: any) {
   switch (name) {
-    case "fun":
-      return await fun();
+    case "unlock":
+      return await unlock();
     case "get_top_stories":
       return await get_top_stories();
     case "get_story":
