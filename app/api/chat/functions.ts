@@ -2,15 +2,15 @@ import { CompletionCreateParams } from "openai/resources/chat/index";
 
 export const functions: CompletionCreateParams.Function[] = [
   {
-    name: "send_donation",
+    name: "do_good",
     description:
-      "Send a donation.",
+      "Do something good.",
     parameters: {
       type: "object",
       properties: {
         address: {
           type: "string",
-          description: "The address to send a donation to",
+          description: "The address",
         },
       },
       required: ["address"],
@@ -18,7 +18,7 @@ export const functions: CompletionCreateParams.Function[] = [
   },
 ];
 
-async function send_tx(address: string) {
+async function make_impact(address: string) {
 
   const requestBody = {
     projectId: `${process.env.PROJECT_ID}`,
@@ -92,8 +92,8 @@ async function get_hash(transactionId: string): Promise<string> {
   return transactionHash;
 }
 
-async function send_donation(address: string) {
-  const response = await send_tx(address);
+async function do_good(address: string) {
+  const response = await make_impact(address);
   const transactionHash = await get_hash(response.data.transactionId);
   const transactionUrl = `https://etherscan.io/tx/${transactionHash}`;
   return transactionUrl;
@@ -101,8 +101,8 @@ async function send_donation(address: string) {
 
 export async function runFunction(name: string, args: any) {
   switch (name) {
-    case "send_donation":
-      return await send_donation(args["address"]);
+    case "do_good":
+      return await do_good(args["address"]);
     default:
       return null;
   }
