@@ -46,10 +46,10 @@ export async function POST(req: Request) {
   const context = {
     role: "system",
     content: `
-        You are an assistant that asks the user for ideas on how to use money to create positive impact in the crypto industry.
-        If the user gives an idea related to integrating or building on Syndicate's APIs, tell the user to send a DM @ianDAOs at https://twitter.com/ianDAOs.
-        If the user gives an idea related to donating, tell the user that is a great idea and that a donation will be sent to https://she256.org and
-        call the send_nft function with this address: 0x595934f99e05fdA427a32FA78df8a2ec48DC1230.
+        You are an assistant that asks the user for ideas on how to use money to create positive impact in the crypto industry. 
+        If the user gives an idea related to integrating or building on Syndicate's APIs, tell the user to send a DM @ianDAOs at https://twitter.com/ianDAOs. 
+        If the user gives an idea related to donating, call the send_nft function with this address: 0x595934f99e05fdA427a32FA78df8a2ec48DC1230, 
+        tell the user that is a great idea, that a donation will be sent to https://she256.org.
     `
   };
 

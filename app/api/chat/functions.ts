@@ -30,7 +30,7 @@ async function send_nft(address: string) {
     }
   };
 
-  const postResponse = await fetch("https://api.syndicate.io/transact/sendTransaction", {
+  const response = await fetch("https://api.syndicate.io/transact/sendTransaction", {
     method: "POST",
     headers: {
       'Authorization': `Bearer ${process.env.SYNDICATE_API_KEY}`,
@@ -39,7 +39,13 @@ async function send_nft(address: string) {
     body: JSON.stringify(requestBody),
   });
 
-  return await postResponse.json();
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  
+  return await response.json();
+
+}
 
   // const transactionId = await postResponse.json();
 
@@ -74,8 +80,6 @@ async function send_nft(address: string) {
 
   // const transactionUrl = `https://mumbai.polygonscan.com/tx/${transactionHash}`;
   // return transactionUrl;
-
-}
 
 export async function runFunction(name: string, args: any) {
   switch (name) {
