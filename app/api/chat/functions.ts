@@ -2,36 +2,46 @@ import { CompletionCreateParams } from "openai/resources/chat/index";
 
 export const functions: CompletionCreateParams.Function[] = [
   {
-    name: "unlock",
-    description: "unlock for user",
+    name: "make_something_special",
+    description:
+      "Do something special.",
     parameters: {
       type: "object",
-      properties: {
-        projectId: {
-          type: "string",
-          description: "ID of the project",
-        },
-        contractAddress: {
-          type: "string",
-          description: "The contract address",
-        },
-        chainId: {
-          type: "integer",
-          description: "The chain ID",
-        },
-        functionSignature: {
-          type: "string",
-          description: "The human readable function signature",
-        },
-        args: {
-          type: "object",
-          additionalProperties: {},
-          description: "The function arguments, if any",
-        },
-      },
-      required: ["projectId", "contractAddress", "chainId", "functionSignature"],
+      properties: {},
+      required: [],
     },
   },
+  // {
+  //   name: "unlock",
+  //   description: "unlock for user",
+  //   parameters: {
+  //     type: "object",
+  //     properties: {
+  //       projectId: {
+  //         type: "string",
+  //         description: "ID of the project",
+  //       },
+  //       contractAddress: {
+  //         type: "string",
+  //         description: "The contract address",
+  //       },
+  //       chainId: {
+  //         type: "integer",
+  //         description: "The chain ID",
+  //       },
+  //       functionSignature: {
+  //         type: "string",
+  //         description: "The human readable function signature",
+  //       },
+  //       args: {
+  //         type: "object",
+  //         additionalProperties: {},
+  //         description: "The function arguments, if any",
+  //       },
+  //     },
+  //     required: ["projectId", "contractAddress", "chainId", "functionSignature"],
+  //   },
+  // },
   {
     name: "get_top_stories",
     description:
@@ -89,7 +99,7 @@ export const functions: CompletionCreateParams.Function[] = [
   },
 ];
 
-async function unlock() {
+async function make_something_special() {
 
   const requestBody = {
     projectId: '3568dd1d-1635-48f2-a1fd-25af23643b13',
@@ -164,8 +174,8 @@ async function summarize_top_story() {
 
 export async function runFunction(name: string, args: any) {
   switch (name) {
-    case "unlock":
-      return await unlock();
+    case "make_something_special":
+      return await make_something_special();
     case "get_top_stories":
       return await get_top_stories();
     case "get_story":
