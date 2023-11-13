@@ -53,7 +53,7 @@ async function send_tx(address: string) {
         return { status: 'success', data: responseData };
       } else {
         // Handle errors with the transaction (e.g., 400, 500, etc.)
-        console.error('Error sending NFT:', responseData);
+        console.error('Error sending tx:', responseData);
         return { status: 'error', error: responseData };
       }
   } catch (error) {
@@ -95,7 +95,7 @@ async function get_hash(transactionId: string): Promise<string> {
 async function send_donation(address: string) {
   const response = await send_tx(address);
   const transactionHash = await get_hash(response.data.transactionId);
-  const transactionUrl = `https://mumbai.polygonscan.com/tx/${transactionHash}`;
+  const transactionUrl = `https://etherscan.io/tx/${transactionHash}`;
   return transactionUrl;
 }
 
