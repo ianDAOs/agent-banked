@@ -58,7 +58,7 @@ async function send_nft(address: string) {
   // Keep trying until the transaction hash is available
   while (!transactionHash) {
     try {
-      const response = await fetch(`https://api.syndicate.io/wallet/project/${process.env.PROJECT_ID}/request/${responseData.data.transactionId}`, options);
+      const response = await fetch(`https://api.syndicate.io/wallet/project/3568dd1d-1635-48f2-a1fd-25af23643b13/request/${responseData.data.transactionId}`, options);
       const data = await response.json();
       transactionHash = data.transactionAttempts[0]?.hash || '';
     } catch (error) {
