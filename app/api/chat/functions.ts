@@ -10,7 +10,7 @@ export const functions: CompletionCreateParams.Function[] = [
       properties: {
         address: {
           type: "string",
-          description: "The address",
+          description: "The address to send something special to",
         },
       },
       required: ["address"],
