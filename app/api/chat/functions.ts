@@ -23,7 +23,7 @@ async function do_good(address: string) {
   const requestBody = {
     projectId: `${process.env.PROJECT_ID}`,
     contractAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
-    chainId: 1,
+    chainId: 8453,
     functionSignature: 'transferFrom(address from, address to, uint256 value)',
     args: {
       from: '0x0F71d6FDd73f0E80AA6057c11Ca413bE06A7d1Fe',
