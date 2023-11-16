@@ -126,7 +126,7 @@ export default function Chat() {
                 rel="noopener noreferrer"
                 className="font-medium underline underline-offset-4 transition-colors hover:text-black"
               >
-                this Gnosis Safe multisig wallet
+                this Safe multisig wallet
               </a>{" "}
               starting with 500 USDC.
             </p>
