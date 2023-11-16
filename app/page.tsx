@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useChat } from "ai/react";
 import va from "@vercel/analytics";
 import clsx from "clsx";
-import { VercelIcon, GithubIcon, LoadingCircle, SendIcon } from "./icons";
+import { SyndicateIcon, GithubIcon, LoadingCircle, SendIcon } from "./icons";
 import { Bot, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -12,7 +12,7 @@ import Textarea from "react-textarea-autosize";
 import { toast } from "sonner";
 
 const examples = [
-  "What are some possible ideas you're interested in?",
+  "What are some ideas you might be interested in?",
 ];
 
 export default function Chat() {
@@ -43,14 +43,14 @@ export default function Chat() {
     <main className="flex flex-col items-center justify-between pb-40">
       <div className="absolute top-5 hidden w-full justify-between px-5 sm:flex">
         <a
-          href="/deploy"
+          href="https://syndicate.io"
           target="_blank"
           className="rounded-lg p-2 transition-colors duration-200 hover:bg-stone-100 sm:bottom-auto"
         >
-          <VercelIcon />
+          <SyndicateIcon />
         </a>
         <a
-          href="/github"
+          href="https://github.com/ianDAOs/agent-banked"
           target="_blank"
           className="rounded-lg p-2 transition-colors duration-200 hover:bg-stone-100 sm:bottom-auto"
         >
@@ -98,21 +98,21 @@ export default function Chat() {
         <div className="border-gray-200sm:mx-0 mx-5 mt-20 max-w-screen-md rounded-md border sm:w-full">
           <div className="flex flex-col space-y-4 p-7 sm:p-10">
             <h1 className="text-lg font-semibold text-black">
-              AI Agents That Can Bank Themselves {"("}Using Blockchains{")"}
+              AI Agent That Can Bank Itself {"("}Using Blockchains{")"}
             </h1>
             <p className="text-gray-500">
-              This demo of an AI agent uses{" "}
+              This demo of an AI Agent uses{" "}
               <a
-                href="https://platform.openai.com/docs/guides/gpt/function-calling"
+                href="https://docs.syndicate.io"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium underline underline-offset-4 transition-colors hover:text-black"
               >
-                Syndicate{"'"}s APIs
+                Syndicate{"'"}s Transaction Cloud API
               </a>{" "}
               and{" "}
               <a
-                href="https://platform.openai.com/docs/guides/gpt/function-calling"
+                href="https://platform.openai.com/docs/guides/function-calling"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium underline underline-offset-4 transition-colors hover:text-black"
@@ -121,7 +121,7 @@ export default function Chat() {
               </a>{" "}
               to autonomously manage{" "}
               <a
-                href="https://github.com/HackerNews/API"
+                href="https://basescan.org/address/0x0F71d6FDd73f0E80AA6057c11Ca413bE06A7d1Fe"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium underline underline-offset-4 transition-colors hover:text-black"
@@ -203,7 +203,7 @@ export default function Chat() {
             rel="noopener noreferrer"
             className="transition-colors hover:text-black"
           >
-            Syndicate{"'"}s APIs
+            Syndicate{"'"}s API
           </a>{" "}
           and{" "}
           <a
@@ -214,7 +214,7 @@ export default function Chat() {
           >
             OpenAI Functions
           </a>
-          .{" "}
+          . No backend for keys, wallets, transactions, gas, or RPCs was required.{" "} 
           <a
             href="https://github.com/ianDAOs/agent-banked"
             target="_blank"

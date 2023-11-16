@@ -28,7 +28,7 @@ async function do_good(address: string) {
     args: {
       from: '0x0F71d6FDd73f0E80AA6057c11Ca413bE06A7d1Fe',
       to: address,
-      value: 1000000,
+      value: 3000000,
     }
   };
 

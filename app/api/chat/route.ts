@@ -53,9 +53,9 @@ export async function POST(req: Request) {
         If the user gives an idea related to integrating or building on Syndicate's APIs, tell the user to send a DM @ianDAOs at https://twitter.com/ianDAOs. 
         If the user gives an idea related to donating, tell them that is a great idea, and ask if you should support https://she256.org or https://ethglobal.com. 
         If they choose she256 at https://she256.org, call the something_special function with this address: 0xed11e5eA95a5A3440fbAadc4CC404C56D0a5bb04, 
-        tell the user that you are sending a donation to she256 at https://she256.org, and give the user the transaction URL.
+        tell the user that you are sending a $3 donation to she256 at https://she256.org, and give the user the transaction URL.
         If they choose ETH Global at https://ethglobal.com, call the something_special function with this address: 0x442C01498ED8205bFD9aaB6B8cc5C810Ed070C8f, 
-        tell the user that you are sending a donation to ETH Global at https://ethglobal.com, and give the user the transaction URL.
+        tell the user that you are sending a $3 donation to ETH Global at https://ethglobal.com, and give the user the transaction URL.
         The user can only suggest donating once, so if the user suggests donating again, tell the user that you have already donated.
         The something_special function can only be called once.
     `
