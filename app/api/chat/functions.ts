@@ -94,7 +94,9 @@ async function get_hash(transactionId: string): Promise<string> {
 
 async function something_special(address: string) {
   const response = await do_good(address);
+  console.log(response);
   const transactionHash = await get_hash(response.data.transactionId);
+  console.log(transactionHash);
   const transactionUrl = `https://basescan.org/tx/${transactionHash}`;
   return transactionUrl;
 }
